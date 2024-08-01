@@ -10,7 +10,10 @@ export class ContactRepositoryService {
   ) {}
 
   public async getOne(id: string): Promise<ContactEntity | null> {
-    if (!id) return null;
+    if (!id) {
+      return null;
+    }
+
     return await this.contactRepository.findOne({ where: { id } });
   }
 
@@ -25,9 +28,7 @@ export class ContactRepositoryService {
     return await this.contactRepository.save(entity);
   }
 
-  public async createMany(
-    createDtos: ICreateContact[],
-  ): Promise<ContactEntity[]> {
+  public async createMany(createDtos: ICreateContact[]): Promise<ContactEntity[]> {
     const response: ContactEntity[] = [];
 
     for (const createDto of createDtos) {

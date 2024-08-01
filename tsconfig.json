@@ -18,15 +18,9 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": false,
     "paths": {
-      "@app/*": [
-        "src/*"
-      ],
-      "@core/*": [
-        "src/core/*"
-      ],
-      "@database/*": [
-        "src/core/database/*"
-      ]
+      "@app/*": ["src/*"],
+      "@core/*": ["src/core/*"],
+      "@database/*": ["src/core/database/*"]
     }
   }
 }

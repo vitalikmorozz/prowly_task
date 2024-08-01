@@ -17,8 +17,10 @@ export class DatabaseService {
   public contactsGetOne(id: string): Observable<IContact> {
     return from(this.contactRepository.getOne(id)).pipe(
       map((entity) => {
-        if (!entity)
+        if (!entity) {
           throw new NotFoundException(`Could not find contact by id ${id}`);
+        }
+
         return entity;
       }),
     );
@@ -28,9 +30,7 @@ export class DatabaseService {
     return from(this.contactRepository.createOne(createDto));
   }
 
-  public contactsCreateMany(
-    createDtos: ICreateContact[],
-  ): Observable<IContact[]> {
+  public contactsCreateMany(createDtos: ICreateContact[]): Observable<IContact[]> {
     return from(this.contactRepository.createMany(createDtos));
   }
 

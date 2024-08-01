@@ -21,15 +21,9 @@ export class ContactsService {
       .pipe(map((entity) => new ResponseContactDto(entity)));
   }
 
-  public createMany(
-    createDtos: ICreateContact[],
-  ): Observable<ResponseContactDto[]> {
+  public createMany(createDtos: ICreateContact[]): Observable<ResponseContactDto[]> {
     return this.databaseService
       .contactsCreateMany(createDtos)
-      .pipe(
-        map((entities) =>
-          entities.map((entity) => new ResponseContactDto(entity)),
-        ),
-      );
+      .pipe(map((entities) => entities.map((entity) => new ResponseContactDto(entity))));
   }
 }

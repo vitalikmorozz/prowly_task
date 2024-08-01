@@ -1,18 +1,23 @@
-import { AddressRepositoryService } from '@database/address/address-repository.service';
-import { ContactRepositoryService } from '@database/contact/contact-repository.service';
-import { ContactEntity } from '@database/contact/contact.entity';
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import * as config from 'config';
-import * as ormConfig from 'config/ormConfig';
-import * as ormConfigTest from 'config/ormConfigTest';
+
+import { AddressRepositoryService } from './address/address-repository.service';
+import { ContactRepositoryService } from './contact/contact-repository.service';
+
 import { DatabaseService } from './database.service';
 
-const env = config.get('environment');
+import { ContactEntity } from './contact/contact.entity';
+
+import { getPgConfig } from './pg.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(env === 'test' ? ormConfigTest : ormConfig),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => getPgConfig(config),
+    }),
     TypeOrmModule.forFeature([ContactEntity]),
   ],
   providers: [DatabaseService, ContactRepositoryService, AddressRepositoryService],

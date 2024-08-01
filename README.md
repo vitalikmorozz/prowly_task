@@ -1,27 +1,33 @@
-### Aplikacja zbudowana w NestJS z podstawowym CRUD'em.
+# **Installation**
 
-# **Instalacja**
+### 1. Install Node.js
 
-### 1. wymagany zainstalowany Node.js w wersji min. v16.13.2
-### 2. wykorzystywana baza danych to PostgreSQL
-### 3. należy skonfigurować pliki konfiguracyjne
-  - zaktualizuj plik default.yml o informacje bazy danych
+### 2. Install Postgres and create new database
 
-# **Zadanie rekrutacyjne**
+You can use `docker-compose up -d` to install it
 
-## 1. Rozszerz obiekt kontaktu o nowe pola
-  - dodaj nowe pole "phoneNumber" z walidacją
-  - dodaj walidację do "email"
-  - uaktualnij istniejący test e2e oraz stwórz nowy sprawdzający czy walidacja działa prawidłowo (jeden request ze złym "phoneNumber" i "email")
+### 3. Configure .env with your environments
 
-## 2. Dodaj informacje na temat adresów w kontakcie
-  - stwórz nowy endpoint dzięki któremu można dodać adres do kontaktu, w respone powinien być on zwrócony z przypisanym id
-  - adres ma składać się z pól "city", "address", "postalCode"
-  - jeden kontakt może zawierać wiele adresów
-  - adresy powinny być zapisywane w nowej tabeli w bazie danych
-  - adresy mają być pobierane wraz z zapytaniem o kontakty
-  - stwórz nowy test e2e sprawdzający dodanie adresu do istniejącego kontaktu
+# **Recruitment task**
 
-## 3. Optymalizacja aplikacji
-  - stwórz nowy test dodający wiele (np. 50000) kontaktów w jednym zapytaniu za pomocą "ContactsController.createMany"
-  - znajdź problemy i zoptymalizuj aktualne rozwiązanie
+run `npm test`
+
+## 1. Contact entity
+
+- Validate user "email" input
+- Add "phoneNumber" field to Contact entity with validation
+- Add test which check response message that given wrong email and wrong phone number was validated correctly
+
+## 2. Address entity
+
+- Implement Address entity
+- Connect contact and address in one-to-many relation (One contact can have multiple addresses)
+- Add new endpoint to save address with a contact (without validation IsString is enough)
+- Contacts should be downloaded with their addresses
+- Add test which tests new endpoint
+- Update test which download contact to check if address was correctly connected
+
+## 3. Optimize create many contact endpoint
+
+- Create test for create many endpoint with payload of minimum 50,000 contacts
+- Optimize create many method to handle this query

@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16.3-bookworm
+    restart: always
+    container_name: prowly-postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-prowly}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-prowly}
+      - POSTGRES_DB=${POSTGRES_DB:-prowly_recruitment}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - '${POSTGRES_PORT}:5432'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
