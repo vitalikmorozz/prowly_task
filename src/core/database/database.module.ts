@@ -10,6 +10,7 @@ import { DatabaseService } from './database.service';
 import { ContactEntity } from './contact/contact.entity';
 
 import { getPgConfig } from './pg.config';
+import { AddressEntity } from './address/address.entity';
 
 @Module({
   imports: [
@@ -18,9 +19,9 @@ import { getPgConfig } from './pg.config';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => getPgConfig(config),
     }),
-    TypeOrmModule.forFeature([ContactEntity]),
+    TypeOrmModule.forFeature([ContactEntity, AddressEntity]),
   ],
   providers: [DatabaseService, ContactRepositoryService, AddressRepositoryService],
   exports: [DatabaseService],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }
